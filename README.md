@@ -2,6 +2,7 @@
 
 1. Download repo
 2. `python3 main.py`
+3. Fix dependancies (I havent gotten around to making a `requirements.txt`, sorry!)
 
 ## Notes
 

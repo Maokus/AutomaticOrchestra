@@ -3,7 +3,6 @@ import numpy as np
 from typing import List
 import dawdreamer as daw
 from scipy.io import wavfile
-import time
 
 import random
 import string
@@ -14,6 +13,8 @@ BBCSO_PATH = "/Library/Audio/Plug-Ins/VST3/BBC Symphony Orchestra.vst3"
 SAMPLE_RATE = 44100
 BUFFER_SIZE = 128
 PPQN = 960  # Pulses per quarter note.
+
+# write_to_mp3 function by Basj at https://stackoverflow.com/a/53633178/11556921
 
 
 def write_to_mp3(f, sr, x, normalized=False):

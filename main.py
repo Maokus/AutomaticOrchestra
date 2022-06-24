@@ -8,7 +8,7 @@ import time
 import random
 import string
 
-# Edit!
+# Edit this string to where you keep the BBCSO vst
 BBCSO_PATH = "/Library/Audio/Plug-Ins/VST3/BBC Symphony Orchestra.vst3"
 
 SAMPLE_RATE = 44100

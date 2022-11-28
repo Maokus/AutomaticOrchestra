@@ -16,5 +16,5 @@ synth = engine.make_plugin_processor("my_synth", SYNTH_PLUGIN)
 assert synth.get_name() == "my_synth"
 
 synth.open_editor()  # Open the editor, make changes, and close
-name = input("enter state name")
-synth.save_state("Dawdreamer/orchestra/"+name)
+name = input("enter state name: ")
+synth.save_state("./misc/"+name)

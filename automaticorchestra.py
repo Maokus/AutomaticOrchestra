@@ -62,7 +62,11 @@ def render_parts(ipos: List[InstrumentPathObject], duration):
 
         assert current_synth.get_name() == synth_label
 
-        current_synth.load_state(ipos[i].state_path)
+        if(ipos[i].state_path != None):
+            current_synth.load_state(ipos[i].state_path)
+        else:
+            current_synth.open_editor()
+
         current_synth.load_midi(ipos[i].midi_path, beats=True)
 
     for synth in synthesizers:

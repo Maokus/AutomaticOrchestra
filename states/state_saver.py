@@ -9,7 +9,8 @@ PPQN = 960
 engine = daw.RenderEngine(SAMPLE_RATE, BUFFER_SIZE)
 engine.set_bpm(120.)  # default is 120 beats per minute.
 
-SYNTH_PLUGIN = "/Library/Audio/Plug-Ins/VST3/BBC Symphony Orchestra.vst3"
+# SYNTH_PLUGIN = "/Library/Audio/Plug-Ins/VST3/BBC Symphony Orchestra.vst3"
+SYNTH_PLUGIN = "/Library/Audio/Plug-Ins/VST3/Vital.vst3"
 
 synth = engine.make_plugin_processor("my_synth", SYNTH_PLUGIN)
 assert synth.get_name() == "my_synth"

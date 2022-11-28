@@ -47,22 +47,23 @@ def render_parts(ipos: List[InstrumentPathObject], duration):
     engine.set_bpm(60.)
 
     synthesizers = []
-    funneled_synths = []  # To transform 16 outputs into 1 outputs
+    funneled_synths = []
     graph = []
 
+    # Load synths
     for i in range(len(ipos)):
         synth_label = "synthesizer_"+str(i)
         current_synth = engine.make_plugin_processor(
             synth_label, ipos[i].vst_path)
+
         synthesizers.append(
             current_synth
         )
+
         assert current_synth.get_name() == synth_label
 
         current_synth.load_state(ipos[i].state_path)
         current_synth.load_midi(ipos[i].midi_path, beats=True)
-
-    # All synths loaded fine
 
     for synth in synthesizers:
         funnel = make_output_funnel(engine)

@@ -6,16 +6,13 @@ import dawdreamer as daw
 from scipy.io import wavfile
 
 
-from automaticorchestra import InstrumentPathObject, render_parts, write_to_mp3
+from automaticorchestra import InstrumentPathObject, render_parts, write_to_mp3, SAMPLE_RATE
 
 # CONSTANTS
 
 BBCSO_PATH = "/Library/Audio/Plug-Ins/VST3/BBC Symphony Orchestra.vst3"
 midi_parts_location = "AutomaticOrchestra/midi_parts/trinity/"
 states_location = "AutomaticOrchestra/states/orchestra/"
-SAMPLE_RATE = 44100
-BUFFER_SIZE = 128
-PPQN = 960  # Pulses per quarter note.
 
 # HELPER FUNCTIONS/CLASSES
 

@@ -10,6 +10,17 @@ SAMPLE_RATE = 44100
 BUFFER_SIZE = 128
 PPQN = 960  # Pulses per quarter note.
 
+# CLASSES
+
+
+class InstrumentPathObject:
+    def __init__(self, vst_path, state_path, midi_path):
+        self.vst_path = vst_path
+        self.state_path = state_path
+        self.midi_path = midi_path
+
+# AUDIO DATA HANDLING
+
 
 def write_to_mp3(f, sr, x, normalized=False):
     """numpy array to MP3"""
@@ -23,25 +34,26 @@ def write_to_mp3(f, sr, x, normalized=False):
     song.export(f, format="mp3", bitrate="320k")
 
 
-class InstrumentPathObject:
-    def __init__(self, vst_path, state_path, midi_path):
-        self.vst_path = vst_path
-        self.state_path = state_path
-        self.midi_path = midi_path
+def normalise(audio):
+    # Where audio is a numpy array
+    return (audio/max(audio[0, :].max(), audio[1, :].max()))
+
+# RENDERING
 
 
 def make_output_funnel(engine):
+    # Convert an instrument of up to 16 stereo outputs to 1 stereo output
     funnel = engine.make_add_processor(
-        # Just some unique string
+        # Unique string identifier
         "output_funnel_"+''.join(random.choices(string.ascii_lowercase, k=5)),
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     )
+    print(funnel.get_num_input_channels())
     return funnel
-
-# IPOs: InstrumentPathObjects
 
 
 def render_parts(ipos: List[InstrumentPathObject], duration):
+    # IPOs: InstrumentPathObjects
 
     engine = daw.RenderEngine(SAMPLE_RATE, BUFFER_SIZE)
     engine.set_bpm(60.)
@@ -85,3 +97,17 @@ def render_parts(ipos: List[InstrumentPathObject], duration):
     engine.render(duration)
     audio = engine.get_audio()
     return audio
+
+
+def gui_to_state(vstpath):
+    # Opens the GUI for the VST, and on close prompts for the name of the state.
+
+    # Setup dawdreamer for processing
+    engine = daw.RenderEngine(SAMPLE_RATE, BUFFER_SIZE)
+    engine.set_bpm(120.)  # default is 120 beats per minute.
+    synth = engine.make_plugin_processor("my_synth", vstpath)
+    assert synth.get_name() == "my_synth"
+
+    synth.open_editor()  # Open the editor, make changes, and close
+    name = input("enter state name: ")
+    synth.save_state(name)

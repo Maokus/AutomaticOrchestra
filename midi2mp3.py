@@ -24,7 +24,7 @@ instrument_path_objects = [
     InstrumentPathObject(args.vst, args.state, args.midi)
 ]
 
-audio = normalise(render_parts(instrument_path_objects, args.audiolength))
+audio = normalise(render_parts(instrument_path_objects, int(args.audiolength)))
 
 write_to_mp3(args.output,
              SAMPLE_RATE, audio.transpose(), normalized=True)
